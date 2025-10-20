@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "suppr": {
+      "command": "npx",
+      "args": ["-y", "suppr-mcp"],
+      "env": {
+        "SUPPR_API_KEY": "your_api_key_here"
+      }
+    }
+  }
+}

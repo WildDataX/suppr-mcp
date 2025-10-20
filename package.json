@@ -1,0 +1,43 @@
+{
+  "name": "suppr-mcp",
+  "version": "1.1.6",
+  "description": "MCP server for Suppr API - AI-powered document translation and literature search",
+  "type": "module",
+  "bin": {
+    "suppr-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "prepare": "npm run build",
+    "dev": "tsup --watch"
+  },
+  "keywords": [
+    "mcp",
+    "suppr",
+    "translation",
+    "literature-search",
+    "ai",
+    "document-translation"
+  ],
+  "author": "WildData",
+  "license": "UNLICENSED",
+  "private": false,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "form-data": "^4.0.4",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  }
+}

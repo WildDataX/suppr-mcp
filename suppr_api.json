@@ -1,0 +1,491 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Suppr API",
+    "description": "# Suppr API\n\n专为第三方开发者设计的AI驱动服务接口。\n\n## 服务功能\n- **文档翻译**: 多语言文档翻译，保持格式完整性\n- **文献搜索**: AI驱动的学术文献搜索\n- **实时状态**: 实时查询任务进度和状态\n\n## 身份验证 (重要!)\n所有 API 端点都需要使用您的 API 密钥进行身份验证：\n**方式: Authorization Header**\n```\nAuthorization: Bearer YOUR_API_KEY\n```\n\n️**注意**:\n- API 密钥将被转发到后端服务进行验证\n- 确保您的 API 密钥有效且未过期\n- 无效的 API 密钥将返回 401 错误\n\n## 错误处理\n所有响应都遵循标准化格式：\n```json\n{\n  \"code\": 0,\n  \"msg\": \"\",\n  \"data\": {...}\n}\n```\n\n## 技术支持\n如需技术支持，请联系：IT@wilddata.cn\n",
+    "contact": {
+      "name": "Suppr API Support",
+      "url": "https://openapi.suppr.wilddata.cn",
+      "email": "IT@wilddata.cn"
+    },
+    "version": "v1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.suppr.wilddata.cn",
+      "description": "Server"
+    }
+  ],
+  "security": [
+    {
+      "X-API-Key": []
+    },
+    {
+      "Bearer Authentication": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "文档翻译",
+      "description": "AI驱动的文档翻译服务"
+    },
+    {
+      "name": "文献搜索",
+      "description": "AI驱动的文献搜索服务"
+    }
+  ],
+  "paths": {
+    "/v1/translations": {
+      "get": {
+        "tags": [
+          "文档翻译"
+        ],
+        "summary": "获取翻译任务列表",
+        "description": "获取翻译任务列表",
+        "operationId": "03_listTranslations",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "分页偏移量",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "每页数量",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功获取翻译任务列表",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "翻译任务列表响应示例": {
+                    "summary": "分页获取翻译任务列表的响应示例",
+                    "description": "翻译任务列表响应示例",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "total": 42,
+                        "offset": 0,
+                        "limit": 20,
+                        "list": [
+                          {
+                            "task_id": "taskid-1234",
+                            "status": "DONE",
+                            "progress": 1,
+                            "consumed_point": 453,
+                            "source_file_name": "example.docx",
+                            "source_file_url": "https://example.com/source.docx",
+                            "target_file_url": "https://example.com/target.docx",
+                            "source_lang": "auto",
+                            "target_lang": "ko",
+                            "error_msg": null,
+                            "optimize_math_formula": false
+                          }
+                        ]
+                      },
+                      "msg": ""
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数错误",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API密钥无效或未提供",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "文档翻译"
+        ],
+        "summary": "创建翻译任务",
+        "description": "创建一个新的文档翻译任务。支持通过文件上传或URL方式提供源文档。",
+        "operationId": "01_createTranslation",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "要翻译的文档文件"
+                  },
+                  "file_url": {
+                    "type": "string",
+                    "description": "文档URL（与file二选一）"
+                  },
+                  "from_lang": {
+                    "type": "string",
+                    "description": "源语言代码"
+                  },
+                  "to_lang": {
+                    "type": "string",
+                    "description": "目标语言代码"
+                  },
+                  "optimize_math_formula": {
+                    "type": "boolean",
+                    "description": "是否优化数学公式(只有文件是 pdf 的时候才有效)，传 true 或 false"
+                  }
+                },
+                "required": [
+                  "to_lang"
+                ]
+              },
+              "encoding": {
+                "file": {
+                  "contentType": "application/octet-stream"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "翻译任务创建成功",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "创建翻译任务成功响应": {
+                    "summary": "成功创建翻译任务的响应示例",
+                    "description": "创建翻译任务成功响应",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "task_id": "02a6c6d1-3f70-4a5a-80bc-971d53a37bb1",
+                        "status": "INIT",
+                        "consumed_point": 453,
+                        "source_lang": "auto",
+                        "target_lang": "ko",
+                        "optimize_math_formula": false
+                      },
+                      "msg": ""
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数错误",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API密钥无效或未提供",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/docs/semantic_search": {
+      "post": {
+        "tags": [
+          "文献搜索"
+        ],
+        "summary": "输入自然语言进行文献检索",
+        "description": "输入自然语言进行文献检索",
+        "operationId": "01_searchDocuments",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/APIDocSearchByQueryReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "文献搜索成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIDocSearchByQueryReq",
+                  "description": "请求体参数说明：\n- query: 必填，自然语言检索内容\n- topk: 可选，返回文献条数，1-100\n- search_gateway: 可选，检索引擎，默认 pubmed\n- return_doc_keys: 可选，指定返回文献字段（字符串数组），可选值如下：\n  [title, link, snippet, datetime, abstract, doi, elocation_doi, pii, elocation_pii, cited_by_num, pub_year, pub_season, pub_month, pub_day, issue_pub_year, issue_pub_season, issue_pub_month, issue_pub_day, article_pub_year, article_pub_season, article_pub_month, article_pub_day, publication, publication_abbr, publication_nlm_id, p_issn, e_issn, l_issn, impact_factor, publisher, publisher_abbr, publisher_location, pub_source_str, language, pub_language, i18n_infos, figure_ids, figure_urls, table_ids, pmid, pmcid, pub_volume, pub_issue, pub_page, pub_start_page, pub_end_page, pub_model]\n- auto_select: 可选，是否自动选择最优结果，默认 true"
+                },
+                "examples": {
+                  "文献搜索成功响应": {
+                    "summary": "成功搜索文献的响应示例",
+                    "description": "文献搜索成功响应",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "search_items": [
+                          {
+                            "doc": {
+                              "title": "Lipid Accumulation Product Predicts Diabetes Remission After Bariatric Surgery in Chinese Patients with BMI < 35 kg/m: a Multicenter Cohort Study.",
+                              "authors": [
+                                {
+                                  "fore_name": "Xianhao",
+                                  "last_name": "Yi",
+                                  "affiliations": [
+                                    {
+                                      "name": "Department of General Surgery, The Third Xiangya Hospital, Central South University, Changsha, 410013, Hunan, China."
+                                    }
+                                  ]
+                                },
+                                {
+                                  "fore_name": "Hua",
+                                  "last_name": "Meng",
+                                  "email": "menghuade@hotmail.com.",
+                                  "affiliations": [
+                                    {
+                                      "name": "Department of General Surgery, The China-Japan Friendship Hospital, Beijing, China."
+                                    }
+                                  ]
+                                }
+                              ],
+                              "abstract": "PURPOSE: To evaluate whether preoperative visceral fat-related indexes, such as visceral adiposity index (VAI), lipid accumulation product (LAP), Chinese visceral adiposity index (CVAI), and metabolic score for visceral fat (METS-VF), are useful for predicting diabetes remission in Chinese patients with a BMI < 35 kg/m after bariatric surgery...",
+                              "doi": "10.1007/s11695-022-06003-1",
+                              "pmid": "35397038",
+                              "pii": "10.1007/s11695-022-06003-1",
+                              "link": "https://pubmed.ncbi.nlm.nih.gov/35397038",
+                              "publisher": "Obesity surgery",
+                              "publication": "Obesity surgery",
+                              "publication_abbr": "Obes Surg",
+                              "publication_nlm_id": "9106714",
+                              "pub_year": 2022,
+                              "pub_month": 6,
+                              "article_pub_year": 2022,
+                              "article_pub_month": 4,
+                              "article_pub_day": 9,
+                              "issue_pub_year": 2022,
+                              "issue_pub_month": 6,
+                              "language": "en",
+                              "pub_language": "en",
+                              "pub_source_str": "Obes Surg. 2022 Jun;32(6):1935-1943. doi: 10.1007/s11695-022-06003-1. Epub 2022 Apr 9.",
+                              "lissn": "0960-8923"
+                            },
+                            "search_gateway": "pubmed∂"
+                          }
+                        ],
+                        "consumed_points": 20
+                      },
+                      "msg": ""
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数错误",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API密钥无效或未提供",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/translations/{task_id}": {
+      "get": {
+        "tags": [
+          "文档翻译"
+        ],
+        "summary": "获取翻译任务详情",
+        "description": "根据 task id 获取翻译任务详情",
+        "operationId": "02_getTranslation",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "description": "翻译任务ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功获取翻译任务详情",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "翻译任务详情响应示例": {
+                    "summary": "获取单个翻译任务详情的响应示例",
+                    "description": "翻译任务详情响应示例",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "task_id": "taskid-1234",
+                        "status": "PROGRESS",
+                        "progress": 1,
+                        "consumed_point": 3,
+                        "source_file_name": "example.pptx",
+                        "source_file_url": "https://example.com/source.pptx",
+                        "target_file_url": "https://example.com/target.pptx",
+                        "source_lang": "auto",
+                        "target_lang": "en",
+                        "error_msg": null,
+                        "optimize_math_formula": false
+                      },
+                      "msg": ""
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数错误",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API密钥无效或未提供",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "未找到指定的翻译任务",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "APIDocSearchByQueryReq": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "自然语言查询字符串",
+            "example": "糖尿病最新研究进展"
+          },
+          "topk": {
+            "type": "integer",
+            "format": "int32",
+            "description": "最大返回结果的数量，范围 1-100，可选，默认 20（注：搜不到预期数量文献的话，实际返回数量会少于 topk）",
+            "example": 5
+          },
+          "return_doc_keys": {
+            "type": "array",
+            "description": "指定返回文献字段（可选，字符串数组）。可选值及含义：\ntitle: 标题\nlink: 链接\nsnippet: 检索条目内容片段/摘要\ndatetime: 时间\nabstract: 论文摘要\ndoi: 数字对象标识符DOI\nelocation_doi: 电子定位符 DOI\npii: 出版商项目标识符PII\nelocation_pii: 电子定位符 PII\ncited_by_num: 被引用次数\npub_year: 出版年份\npub_season: 出版季\npub_month: 出版月份\npub_day: 出版日\nissue_pub_year: 出版时间（期刊印刷版）\nissue_pub_season: 出版季（期刊印刷版）\nissue_pub_month: 出版月份（期刊印刷版）\nissue_pub_day: 出版日（期刊印刷版）\narticle_pub_year: 出版年份（电子版）\narticle_pub_season: 出版季（电子版）\narticle_pub_month: 出版月份（电子版）\narticle_pub_day: 出版日（电子版）\npublication: 出版物\npublication_abbr: 出版物缩写\npublication_nlm_id: 出版物 NLM ID\np_issn: 纸质版ISSN\ne_issn: 电子版ISSN\nl_issn: 链接ISSN\nimpact_factor: 影响因子\npublisher: 出版商\npublisher_abbr: 出版商（缩写）\npublisher_location: 出版机构所在地\npub_source_str: 出版源\nlanguage: 语言 (title/abstract/snippet)\npub_language: 原出版语言\ni18n_infos: 国际化信息\nfigure_ids: 图片ID列表\nfigure_urls: 图片URL列表，与图片ID列表一一对应\ntable_ids: 表格ID列表\npmid: PubMed ID\npmcid: PubMed Central ID\npub_volume: 卷\npub_issue: 期\npub_page: 页码\npub_start_page: 起始页码\npub_end_page: 结束页码\npub_model: 出版模式",
+            "example": [
+              "title",
+              "abstract",
+              "doi"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "auto_select": {
+            "type": "boolean",
+            "description": "是否自动选择最优结果，默认 true",
+            "example": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "使用 Bearer 令牌认证。格式: 'Bearer YOUR_API_KEY'",
+        "scheme": "bearer",
+        "bearerFormat": "API Key"
+      }
+    }
+  },
+  "externalDocs": {}
+}

@@ -26,7 +26,7 @@ const supprClient = new SupprClient(API_KEY);
 // Create MCP server using high-level API
 const server = new McpServer({
   name: 'suppr-mcp',
-  version: '1.1.6',
+  version: '1.1.7',
 });
 
 // Register document translation tools

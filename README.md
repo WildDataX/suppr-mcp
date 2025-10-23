@@ -270,7 +270,7 @@ AI 驱动的文献语义搜索。
 A: 访问 https://suppr.wilddata.cn/api-keys 注册并获取 API 密钥。
 
 ### Q: 支持哪些文档格式？
-A: 支持 PDF, DOCX, PPTX, XLSX, HTML, TXT等常见格式。
+A: 支持 PDF, DOCX, PPTX, XLSX, HTML, TXT, EPUB等常见格式。
 
 ### Q: 翻译需要多长时间？
 A: 取决于文档大小，通常几分钟到十几分钟不等。可以使用 `get_translation` 查询进度。

@@ -281,10 +281,19 @@ A: 翻译完成后，`get_translation` 会返回 `target_file_url`，直接访�
 ### Q: npx 运行失败？
 A: 确保 Node.js 版本 >= 18.0.0，并且设置了 SUPPR_API_KEY 环境变量。
 
+
+## 🔗 生态集成
+
+- **Zotero插件** : https://github.com/WildDataX/suppr-zotero-plugin
+- **官方网站**：[https://suppr.wilddata.cn](https://suppr.wilddata.cn)
+- **AI文档翻译**:https://suppr.wilddata.cn/translate/upload
+- **API服务**:https://openapi.suppr.wilddata.cn/introduction
+- **中文搜Pubmed**: https://suppr.wilddata.cn/
+- **深度研究**：[https://suppr.wilddata.cn/deep-research](https://suppr.wilddata.cn/deep-research)  
+- **GitHub组织**：[WildDataX](https://github.com/WildDataX)
+
 ## 技术支持
 
 如需帮助，请联系：IT@wilddata.cn
-
----
 
 Made with ❤️ by [WildData](https://wilddata.cn)

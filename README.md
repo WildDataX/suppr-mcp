@@ -1,4 +1,4 @@
-# Suppr MCP - Usage Guide
+# Suppr MCP - Usage Guide | 提供文档翻译及中文搜Pubmed的MCP服务 | Suppr超能文献
 
 ## Quick Start
 

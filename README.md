@@ -282,7 +282,7 @@ A: 翻译完成后，`get_translation` 会返回 `target_file_url`，直接访�
 A: 确保 Node.js 版本 >= 18.0.0，并且设置了 SUPPR_API_KEY 环境变量。
 
 
-## 🔗 生态集成
+## 🔗 Suppr超能文献产品
 
 - **Zotero插件** : https://github.com/WildDataX/suppr-zotero-plugin
 - **官方网站**：[https://suppr.wilddata.cn](https://suppr.wilddata.cn)

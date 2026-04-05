@@ -1,5 +1,24 @@
 # Suppr MCP - Usage Guide | 提供文档翻译及中文搜Pubmed的MCP服务 | Suppr超能文献
 
+# Suppr MCP Server
+
+> **[Suppr](https://suppr.wilddata.cn)** (超能文献) is an AI-powered academic tools platform by [WildData](https://wilddata.cn). This MCP server brings document translation and literature search capabilities to AI assistants.
+
+🌐 **AI Document Translation** — Translate PDF, Word (.docx), Excel (.xlsx), PowerPoint (.pptx), TXT, and HTML documents across 13 languages. Preserves original formatting. Automatic source language detection.
+
+🔬 **PubMed Academic Search** — Semantic literature discovery across millions of biomedical research papers. Returns structured metadata: DOI, PMID, journal impact factor, citation counts, author affiliations, abstracts, and direct paper links.
+
+🤖 **MCP Compatible** — Works with Claude Desktop, Cursor, Windsurf, and any [Model Context Protocol](https://modelcontextprotocol.io) client.
+
+[![npm version](https://img.shields.io/npm/v/suppr-mcp)](https://www.npmjs.com/package/suppr-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Install
+
+\`\`\`bash
+npx suppr-mcp
+\`\`\`
+
 ## Quick Start
 
 ### 1. 安装
@@ -297,3 +316,16 @@ A: 确保 Node.js 版本 >= 18.0.0，并且设置了 SUPPR_API_KEY 环境变量�
 如需帮助，请联系：IT@wilddata.cn
 
 Made with ❤️ by [WildData](https://wilddata.cn)
+
+
+## Suppr Ecosystem
+
+| Product | Link |
+|---------|------|
+| 🌐 Suppr Platform | [suppr.wilddata.cn](https://suppr.wilddata.cn) |
+| 📖 API Documentation | [openapi.suppr.wilddata.cn](https://openapi.suppr.wilddata.cn/introduction.html) |
+| 🔌 Zotero Plugin | [suppr-zotero-plugin](https://github.com/WildDataX/suppr-zotero-plugin) |
+| 🤖 Claude Code Skills | [suppr-skills](https://github.com/WildDataX/suppr-skills) |
+| 🔬 Deep Research | [suppr.wilddata.cn/deep-research](https://suppr.wilddata.cn/deep-research) |
+| 📄 AI Translation | [suppr.wilddata.cn/translate/upload](https://suppr.wilddata.cn/translate/upload) |
+| 🔎 PubMed Search | [suppr.wilddata.cn](https://suppr.wilddata.cn/) |

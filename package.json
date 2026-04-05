@@ -18,15 +18,17 @@
     "dev": "tsup --watch"
   },
   "keywords": [
-    "mcp",
-    "suppr",
-    "translation",
-    "literature-search",
-    "ai",
-    "document-translation"
+    "mcp", "mcp-server", "model-context-protocol",
+    "translation", "document-translation", "pdf-translator",
+    "ai-translation", "multilingual-translation",
+    "academic-search", "pubmed", "literature-search",
+    "research-papers", "semantic-search",
+    "suppr", "wilddata",
+    "claude", "cursor"
   ],
   "author": "WildData",
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "homepage": "https://suppr.wilddata.cn",
   "private": false,
   "engines": {
     "node": ">=18.0.0"

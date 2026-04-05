@@ -1,0 +1,16 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      SUPPR_API_KEY:
+        type: string
+        description: "Your Suppr API key from https://suppr.wilddata.cn/api-keys"
+    required:
+      - SUPPR_API_KEY
+  commandFunction:
+    - npx
+    - -y
+    - suppr-mcp
+  env:
+    SUPPR_API_KEY: "{{config.SUPPR_API_KEY}}"

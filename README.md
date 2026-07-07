@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/wilddatax-suppr-mcp-badge.png)](https://mseep.ai/app/wilddatax-suppr-mcp)
+
 # Suppr MCP - Usage Guide | 提供文档翻译及中文搜Pubmed的MCP服务 | Suppr超能文献
 
 # Suppr MCP Server

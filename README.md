@@ -89,14 +89,14 @@ export SUPPR_API_KEY=your_api_key_here
 - `file_url` (file_path 和 file_url 二选一): 要翻译的文档 URL
 - `to_lang` (必填): 目标语言代码
 - `from_lang` (可选): 源语言代码（默认自动检测）
-- `optimize_math_formula` (可选): 优化数学公式（仅 PDF）
+- `optimize_math_formula` (可选): 优化数学公式（仅 1–50 页的 PDF，默认 false）
 
 **示例：**
 ```json
 {
   "file_url": "https://example.com/document.pdf",
   "to_lang": "en",
-  "from_lang": "zh",
+  "from_lang": "zh-cn",
   "optimize_math_formula": true
 }
 ```
@@ -235,9 +235,12 @@ AI 驱动的文献语义搜索。
 
 ## 支持的语言
 
+新增语言版本部署并启用后支持 [152 种文档语言](https://github.com/WildDataX/suppr-backend/blob/codex/document-languages/docs/plans/2026-10-09-document-translation-language-catalog.md)，例如 `bo`、`sr-latn` / `sr-cyrl`、`tk-latn` / `tk-cyrl`。新增版本未启用前，以服务端实际支持范围为准；以上两个文字变体不能互换。MCP 直接透传代码，不另维护语言白名单。`zh` 等历史 API 代码继续兼容，新调用建议明确使用 `zh-cn` 或 `zh-tw`。
+
 常用语言代码：
 - `en`: English (英语)
-- `zh`: Chinese (中文)
+- `zh-cn`: 简体中文
+- `zh-tw`: 繁体中文
 - `ko`: Korean (韩语)
 - `ja`: Japanese (日语)
 - `fr`: French (法语)
@@ -247,7 +250,7 @@ AI 驱动的文献语义搜索。
 - `ar`: Arabic (阿拉伯语)
 - `pt`: Portuguese (葡萄牙语)
 - `it`: Italian (意大利语)
-- `auto`: 自动检测
+- `auto`: 自动检测，仅可用于源语言
 
 ## 错误处理
 
